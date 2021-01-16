@@ -1,0 +1,24 @@
+{
+  "name": "nodeapp",
+  "version": "1.0.0",
+  "description": "Example node app with REST",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Simulate tests with success response\" && exit 0"
+  },
+  "author": "ehrnjic",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ehrnjic/jenkins-nodejs-docker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ehrnjic/jenkins-nodejs-docker/issues"
+  },
+  "homepage": "https://github.com/ehrnjic/jenkins-nodejs-docker#readme"
+}
