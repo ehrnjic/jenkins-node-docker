@@ -14,6 +14,7 @@ pipeline {
         stage('Run test script inside container') {
             steps {
                 sh '''
+                    docker ps -f name=nodeapp-test -q | xargs --no-run-if-empty docker stop
                     docker run -d --rm --name nodeapp-test -p 9000:3000 nodeapp:latest
                     docker exec -i nodeapp-test npm test
                     docker stop nodeapp-test
