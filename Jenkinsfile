@@ -9,10 +9,8 @@ node {
         sh 'npm test'
     }
 
-    stage('docker stop container') {
-        def currContainer = docker.container('nodewebapp')
-        currContainer.stop()
-    }
-    
+    sh 'docker stop nodewebapp'
+    sh 'docker rm nodewebapp'
+
     customImage.run("--rm -p 3000:3000 --name nodewebapp")
 }
