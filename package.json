@@ -4,7 +4,7 @@
   "description": "Example node app with REST",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node app.js", 
     "test": "echo \"Simulate tests with success response\" && exit 0"
   },
   "author": "ehrnjic",
