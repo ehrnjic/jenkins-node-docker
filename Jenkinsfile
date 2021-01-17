@@ -1,15 +1,33 @@
-node {
-    
-    checkout scm
+pipeline {
+    agent any
 
-    def customImage = docker.build("nodeapp:${env.BUILD_ID}")
-    customImage.tag("latest")
-    
-    customImage.inside {
-        sh 'npm test'
+    stages {
+        stage('Build image with node app') {
+            steps {
+                sh '''
+                    docker build -t nodeapp:$BUILD_ID -f Dockerfile .
+                    docker tag nodeapp:$BUILD_ID nodeapp:latest
+                '''
+            }
+        }
+
+        stage('Run test script inside container') {
+            steps {
+                sh '''
+                    docker run -d --rm --name nodeapp-test -p 9000:3000 nodeapp:latest
+                    docker exec -i nodeapp-test npm test
+                    docker stop nodeapp-test
+                '''
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh '''
+                    docker stop nodeapp-prod
+                    docker run -d --rm --name nodeapp-prod -p 3000:3000 nodeapp:latest
+                '''
+            }
+        }
     }
-
-    sh 'docker ps -f name=nodewebapp -q | xargs --no-run-if-empty docker container stop'
-
-    customImage.run("--rm -p 3000:3000 --name nodewebapp")
 }
