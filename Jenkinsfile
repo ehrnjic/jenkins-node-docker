@@ -10,7 +10,6 @@ node {
     }
 
     sh 'docker stop nodewebapp'
-    sh 'docker rm nodewebapp'
 
     customImage.run("--rm -p 3000:3000 --name nodewebapp")
 }
