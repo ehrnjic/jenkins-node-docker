@@ -24,7 +24,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    docker stop nodeapp-prod
+                    docker ps -f name=nodeapp-prod -q | xargs --no-run-if-empty docker stop
                     docker run -d --rm --name nodeapp-prod -p 3000:3000 nodeapp:latest
                 '''
             }
